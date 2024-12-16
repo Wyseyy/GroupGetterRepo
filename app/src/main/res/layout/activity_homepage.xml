@@ -29,14 +29,14 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation_gg"
-        android:checkableBehavior="single"
+        app:defaultNavHost="true"
+        app:menu="@menu/bottom_nav_menu"
+        app:navGraph="@navigation/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-7dp"
         android:background="?android:attr/windowBackground"
-        app:defaultNavHost="true"
-        app:menu="@menu/bottom_nav_menu"
-        app:navGraph="@navigation/navigation" />
+        android:checkableBehavior="single" />
 
 </RelativeLayout>

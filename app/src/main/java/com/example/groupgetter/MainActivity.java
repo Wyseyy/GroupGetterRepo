@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(CServiceIntent);
                         return true;
 
-                    // If the Recipes item was selected
+                    // If the Community item was selected
                     case R.id.navigation_community:
                         // Create an Intent to launch the CommunityActivity
                         Intent CommunityIntent = new Intent(MainActivity.this, CommunityActivity.class);
