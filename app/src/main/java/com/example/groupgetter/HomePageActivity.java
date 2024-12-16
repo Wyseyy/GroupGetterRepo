@@ -1,6 +1,9 @@
 package com.example.groupgetter;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.groupgetter.RedditApi;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -13,9 +16,11 @@ import retrofit2.Response;
 
 import android.content.Intent;
 import android.os.Bundle;
-public class HomePageActivity extends AppCompatActivity{
-    private RedditApi redditApi;
+import android.view.MenuItem;
 
+public class HomePageActivity extends AppCompatActivity{
+    private BottomNavigationView bottomMenu;
+    private RedditApi redditApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +30,33 @@ public class HomePageActivity extends AppCompatActivity{
 
         // Fetch subreddits related to a topic
         fetchSubreddits("Dungeons and Dragons");
+
+        bottomMenu.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        // Check which item in the BottomNavigationView was selected
+                        switch (item.getItemId()) {
+                            // If the Home item was selected
+                            case R.id.navigation_cservice:
+                                // Create an Intent to launch the CServiceActivity
+                                Intent cserviceIntent = new Intent(HomePageActivity.this, CServiceActivity.class);
+                                // Start the CServiceActivity
+                                startActivity(cserviceIntent);
+                                return true;
+                            // If the Community item was selected
+                            case R.id.navigation_community:
+                                // Create an Intent to launch the CommunityActivity
+                                Intent communityIntent = new Intent(HomePageActivity.this, CommunityActivity.class);
+                                // Start the CommunityActivity
+                                startActivity(communityIntent);
+                                return true;
+                            //If no item was selected, return false
+                            default:
+                                return false;
+                        }
+                    }
+                });
     }
 
     public void fetchSubreddits(String topic) {

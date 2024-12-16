@@ -32,40 +32,39 @@ public class MainActivity extends AppCompatActivity {
         bottomMenu = findViewById(R.id.navigation_gg);
 
 
-        bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // Check which item in the BottomNavigationView was selected
-                switch (item.getItemId()) {
-                    // If the Home item was selected
-                    case R.id.navigation_home:
-                        // Create an Intent to launch the HomePageActivity
-                        Intent homeIntent = new Intent(MainActivity.this, HomePageActivity.class);
-                        // Start the HomePageActivity
-                        startActivity(homeIntent);
-                        return true;
-
-                    // If the Customer Service item was selected
-                    case R.id.navigation_cservice:
-                        // Create an Intent to launch the CServiceActivity
-                        Intent CServiceIntent = new Intent(MainActivity.this, CServiceActivity.class);
-                        // Start the CServiceActivity
-                        startActivity(CServiceIntent);
-                        return true;
-
-                    // If the Community item was selected
-                    case R.id.navigation_community:
-                        // Create an Intent to launch the CommunityActivity
-                        Intent CommunityIntent = new Intent(MainActivity.this, CommunityActivity.class);
-                        // Start the CommunityActivity
-                        startActivity(CommunityIntent);
-                        return true;
-
-                    // If no item was selected, return false
-                    default:
-                        return false;
-                }
-            }
-        });
+        // Set the OnNavigationItemSelectedListener of the BottomNavigationView
+        bottomMenu.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        // Check which item in the BottomNavigationView was selected
+                        switch (item.getItemId()) {
+                            // If the Home item was selected
+                            case R.id.navigation_home:
+                                // Create an Intent to launch the HomeActivity
+                                Intent homeIntent = new Intent(MainActivity.this, HomePageActivity.class);
+                                // Start the HomeActivity
+                                startActivity(homeIntent);
+                                return true;
+                            // If the Community item was selected
+                            case R.id.navigation_community:
+                                // Create an Intent to launch the CommunityActivity
+                                Intent communityIntent = new Intent(MainActivity.this, CommunityActivity.class);
+                                // Start the CommunityActivity
+                                startActivity(communityIntent);
+                                return true;
+                            // If the Customer Service item was selected
+                            case R.id.navigation_cservice:
+                                //Create an Intent to launch the CServiceActivity
+                                Intent cserviceIntent = new Intent(MainActivity.this, CServiceActivity.class);
+                                //Start the CServiceActivity
+                                startActivity(cserviceIntent);
+                                return true;
+                            //If no item was selected, return false
+                            default:
+                                return false;
+                        }
+                    }
+                });
     }
 }

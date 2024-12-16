@@ -24,10 +24,5 @@
         android:name="com.example.groupgetter.CommunityFragment"
         android:label="Community"
         tools:layout="@layout/activity_community"
-
-
-
-
-
         />
 </navigation>
