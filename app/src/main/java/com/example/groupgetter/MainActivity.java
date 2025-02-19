@@ -18,8 +18,8 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomMenu;
-    private EditText searchEditText;
-    private Button searchButton;
+    private EditText searchEText;
+    private Button searchBtn;
     private RecyclerView recyclerView;
 
     @Override
@@ -37,8 +37,29 @@ public class MainActivity extends AppCompatActivity {
         finish();
 
         bottomMenu = findViewById(R.id.navigation_gg);
+        searchEText = findViewById(R.id.searchEText);
+        searchBtn = findViewById(R.id.searchBtn);
+        recyclerView = findViewById(R.id.recyclerView);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //not allow the user to use search button until a valid input type is inputted.
+        searchBtn.setEnabled(false);
+
+        //validation method so users can only input letters and numbers.
+        searchEText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charS, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charS, int i, int i1, int i2) {
+                String query = charS.toString().trim();
+                searchBtn.setEnabled(query.matches("^[a-zA-Z0-9]+$") && !query.isEmpty());
+            }
+
+            @Override
+            public void afterTextChanged(Editable edit) {}
+        });
 
         // Set the OnNavigationItemSelectedListener of the BottomNavigationView
         bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

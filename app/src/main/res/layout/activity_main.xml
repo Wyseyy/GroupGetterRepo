@@ -27,6 +27,28 @@
         tools:layout_editor_absoluteY="674dp"
         tools:ignore="MissingConstraints" />
 
+    <EditText
+        android:id="@+id/searchEText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter keyword"
+        android:inputType="text"
+        android:maxLines="1"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/searchBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"/>
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="244dp"
