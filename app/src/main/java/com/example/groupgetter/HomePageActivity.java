@@ -1,16 +1,13 @@
 package com.example.groupgetter;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.groupgetter.RedditApi;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+
 import java.util.List;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.Call;
+
 import retrofit2.Callback;
 import retrofit2.Response;
 
