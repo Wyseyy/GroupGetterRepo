@@ -61,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable edit) {}
         });
 
+        searchBtn.setOnClickListener (view ->{
+            String q = searchEText.getText().toString().trim();
+            if (q.matches("^[a-zA-Z0-9]+$")){
+                searchForSubreddits(q);
+            } else {
+                searchEText.setError("Only letters and numbers accepted, please try again");
+            }
+        });
+
         // Set the OnNavigationItemSelectedListener of the BottomNavigationView
         bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -97,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void searchForSubreddits(String q){
+        AuthRepository.getAccessToken(token-> {
 
+        });
     }
 }
