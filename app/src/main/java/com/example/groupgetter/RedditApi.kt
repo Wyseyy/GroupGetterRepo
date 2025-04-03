@@ -6,9 +6,9 @@ import retrofit2.http.Query
 
 interface RedditApi {
     @GET("subreddits/search")
-    fun searchSubreddits(
+    suspend fun searchSubreddits(
             @Header("Authorization") authHeader: String,
             @Query("q") query: String,
             @Query("limit") limit: Int = 10
-    ): Call<SubredditSearchResponse>
+    ): retrofit2.Response<SubredditSearchResponse>
 }

@@ -5,18 +5,27 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import java.util.List;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import kotlinx.coroutines.*;
+import kotlin.Unit;
+import kotlin.coroutines.Continuation;
+import kotlin.jvm.functions.Function1;
+import kotlinx.coroutines.CoroutineScope;
+import kotlinx.coroutines.Dispatchers;
+import kotlinx.coroutines.GlobalScope;
 
 public class MainActivity extends AppCompatActivity {
-
     private BottomNavigationView bottomMenu;
     private EditText searchEText;
     private Button searchBtn;
@@ -49,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         //validation method so users can only input letters and numbers.
         searchEText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charS, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charS, int i, int i1, int i2) {
+            }
 
             @Override
             public void onTextChanged(CharSequence charS, int i, int i1, int i2) {
@@ -58,12 +68,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable edit) {}
+            public void afterTextChanged(Editable edit) {
+            }
         });
 
-        searchBtn.setOnClickListener (view ->{
+        searchBtn.setOnClickListener(view -> {
             String q = searchEText.getText().toString().trim();
-            if (q.matches("^[a-zA-Z0-9]+$")){
+            if (q.matches("^[a-zA-Z0-9]+$")) {
                 searchForSubreddits(q);
             } else {
                 searchEText.setError("Only letters and numbers accepted, please try again");
@@ -107,9 +118,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void searchForSubreddits(String q){
-        AuthRepository.getAccessToken(token-> {
 
+    private void searchForSubreddits(String query) {
+        AuthorityRepo.getAccessToken(token -> {
+            if (token != null) {
+                Repo.searchSubredditLaunch(token, query).thenAccept(subreddits -> {
+                    runOnUiThread(() -> {
+                        if (subreddits != null && !subreddits.isEmpty()) {
+                            recyclerView.setAdapter(new GGAdapter(subreddits));
+                        } else {
+                            Toast.makeText(MainActivity.this, "No Subreddit found", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }).exceptionally(e -> {
+                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    return null;
+                });
+            } else {
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Access token could not be found", Toast.LENGTH_SHORT).show());
+            }
+            return null;
         });
     }
 }
