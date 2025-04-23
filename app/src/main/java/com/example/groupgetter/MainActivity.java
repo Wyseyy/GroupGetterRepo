@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText searchEText;
     private Button searchBtn;
     private RecyclerView recyclerView;
+    private String accessToken;
 
+    private static final int REDDIT_AUTH_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +41,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         //Create an Intent to launch the LoginActivity
-        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        boolean isAuthenticated = false;
 
-        //Start the LoginActivity
-        startActivity(loginIntent);
-        finish();
+        if (!isAuthenticated) {
+            Intent authorizeIntent = new Intent(MainActivity.this, RedditAuthenticationActivity.class);
+            startActivityForResult(authorizeIntent, REDDIT_AUTH_REQUEST);
+        }
 
         bottomMenu = findViewById(R.id.navigation_gg);
         searchEText = findViewById(R.id.searchEText);
@@ -51,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //not allow the user to use search button until a valid input type is inputted.
-        searchBtn.setEnabled(false);
 
         //validation method so users can only input letters and numbers.
         searchEText.addTextChangedListener(new TextWatcher() {
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable edit) {
             }
         });
-
+        //not allow the user to use search button until a valid input type is inputted.
         searchBtn.setOnClickListener(view -> {
             String q = searchEText.getText().toString().trim();
             if (q.matches("^[a-zA-Z0-9]+$")) {
@@ -119,24 +119,49 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void searchForSubreddits(String query) {
-        AuthorityRepo.getAccessToken(token -> {
-            if (token != null) {
-                Repo.searchSubredditLaunch(token, query).thenAccept(subreddits -> {
-                    runOnUiThread(() -> {
-                        if (subreddits != null && !subreddits.isEmpty()) {
-                            recyclerView.setAdapter(new GGAdapter(subreddits));
-                        } else {
-                            Toast.makeText(MainActivity.this, "No Subreddit found", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }).exceptionally(e -> {
-                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REDDIT_AUTH_REQUEST && resultCode == RESULT_OK) {
+            String authCode = data.getStringExtra("authCode");
+            if (authCode != null) {
+                AuthorityRepo.getAccessToken(authCode, token -> {
+                    if (token != null && !token.isEmpty()) {
+                        accessToken = token;
+                        runOnUiThread(() ->
+                                Toast.makeText(this, "Authentication for Reddit is successful", Toast.LENGTH_SHORT).show()
+                        );
+                    } else {
+                        runOnUiThread(() ->
+                                Toast.makeText(this, "Failed to authenticate", Toast.LENGTH_SHORT).show()
+                        );
+                    }
                     return null;
                 });
-            } else {
-                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Access token could not be found", Toast.LENGTH_SHORT).show());
             }
+        }
+    }
+
+
+    private void searchForSubreddits(String query) {
+        if (accessToken == null || accessToken.isEmpty()) {
+            Toast.makeText(this, "Please log into Reddit first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Repo.searchSubredditLaunch(accessToken, query).thenAccept(subreddits -> {
+            runOnUiThread(() -> {
+                if (subreddits != null && !subreddits.isEmpty()) {
+                    recyclerView.setAdapter(new GGAdapter(subreddits));
+                } else {
+                    Toast.makeText(MainActivity.this, "No Subreddit has been found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }).exceptionally(e -> {
+            runOnUiThread(() ->
+                    Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+            );
             return null;
         });
     }

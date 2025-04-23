@@ -16,7 +16,7 @@ object Repo {
     @JvmStatic
     fun searchSubredditLaunch(accessToken: String, query: String): CompletableFuture<List<SubredditInformation>?> {
         val launch = CompletableFuture<List<SubredditInformation>?>()
-        scope.launch(Dispatchers.IO) {
+        scope.launch {
             try {
                 val result = SubredditSearch(accessToken, query)
                 launch.complete(result)
