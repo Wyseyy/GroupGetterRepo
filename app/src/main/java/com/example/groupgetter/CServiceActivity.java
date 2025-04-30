@@ -24,12 +24,12 @@ public class CServiceActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // Check which item in the BottomNavigationView was selected
                 switch (item.getItemId()) {
-                    // If the Home item was selected
-                    case R.id.navigation_home:
-                        // Create an Intent to launch the HomeActivity
-                        Intent homeIntent = new Intent(CServiceActivity.this, HomePageActivity.class);
+                    // If the Main item was selected
+                    case R.id.navigation_main:
+                        // Create an Intent to launch the MainActivity
+                        Intent mainIntent = new Intent(CServiceActivity.this, MainActivity.class);
                         // Start the HomeActivity
-                        startActivity(homeIntent);
+                        startActivity(mainIntent);
                         return true;
 
                     // If the Community item was selected

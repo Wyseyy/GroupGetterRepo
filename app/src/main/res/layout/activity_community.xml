@@ -20,7 +20,7 @@
         android:padding="8dp">
 
         <EditText
-            android:id="@+id/et_message"
+            android:id="@+id/communityMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -28,7 +28,7 @@
             android:inputType="text" />
 
         <Button
-            android:id="@+id/btn_send"
+            android:id="@+id/communityButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send" />

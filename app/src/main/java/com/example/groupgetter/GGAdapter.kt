@@ -6,9 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import org.w3c.dom.Text
 
-class GGAdapter(private val subredditList: List<SubredditInformation>) :
+class GGAdapter(private var subredditList: List<SubredditInformation>) :
         RecyclerView.Adapter<GGAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -35,6 +34,12 @@ class GGAdapter(private val subredditList: List<SubredditInformation>) :
                 .error(R.drawable.error_icon)
                 .into(holder.subIcon)
     }
+
+    fun update(newSubreddits: List<SubredditInformation>) {
+        subredditList = newSubreddits
+        notifyDataSetChanged()
+    }
+
 
     override fun getItemCount(): Int = subredditList.size
 }

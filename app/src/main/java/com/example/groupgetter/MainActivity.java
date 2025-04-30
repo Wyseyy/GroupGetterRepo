@@ -1,38 +1,41 @@
 package com.example.groupgetter;
 
+import java.util.ArrayList;
+import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import java.util.List;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
+import android.widget.Toast;;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import kotlinx.coroutines.*;
-import kotlin.Unit;
-import kotlin.coroutines.Continuation;
-import kotlin.jvm.functions.Function1;
-import kotlinx.coroutines.CoroutineScope;
-import kotlinx.coroutines.Dispatchers;
-import kotlinx.coroutines.GlobalScope;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomMenu;
     private EditText searchEText;
     private Button searchBtn;
+    private Button returnToRedditBtn;
+    private Button connectBtn;
     private RecyclerView recyclerView;
     private String accessToken;
+    private GGAdapter adapter;
+    private WebView redditWebView;
 
-    private static final int REDDIT_AUTH_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,45 +43,41 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        //Create an Intent to launch the LoginActivity
-        boolean isAuthenticated = false;
-
-        if (!isAuthenticated) {
-            Intent authorizeIntent = new Intent(MainActivity.this, RedditAuthenticationActivity.class);
-            startActivityForResult(authorizeIntent, REDDIT_AUTH_REQUEST);
-        }
 
         bottomMenu = findViewById(R.id.navigation_gg);
-        searchEText = findViewById(R.id.searchEText);
-        searchBtn = findViewById(R.id.searchBtn);
-        recyclerView = findViewById(R.id.recyclerView);
+        returnToRedditBtn = findViewById(R.id.returnToRedditBtn);
+        connectBtn = findViewById(R.id.connectBtn);
+        redditWebView = findViewById(R.id.redditWebView);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //validation method so users can only input letters and numbers.
-        searchEText.addTextChangedListener(new TextWatcher() {
+        redditWebView.getSettings().setJavaScriptEnabled(true);
+        redditWebView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url){
+                view.loadUrl(url);
+                return true;
+            }
             @Override
-            public void beforeTextChanged(CharSequence charS, int i, int i1, int i2) {
+            public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
             }
 
             @Override
-            public void onTextChanged(CharSequence charS, int i, int i1, int i2) {
-                String query = charS.toString().trim();
-                searchBtn.setEnabled(query.matches("^[a-zA-Z0-9]+$") && !query.isEmpty());
-            }
-
-            @Override
-            public void afterTextChanged(Editable edit) {
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
             }
         });
-        //not allow the user to use search button until a valid input type is inputted.
-        searchBtn.setOnClickListener(view -> {
-            String q = searchEText.getText().toString().trim();
-            if (q.matches("^[a-zA-Z0-9]+$")) {
-                searchForSubreddits(q);
-            } else {
-                searchEText.setError("Only letters and numbers accepted, please try again");
-            }
+
+        connectBtn.setOnClickListener(view -> {
+            redditWebView.stopLoading();
+            redditWebView.clearHistory();
+            redditWebView.clearCache(true);
+            redditWebView.loadUrl("https://www.reddit.com/");
+        });
+
+        //button to allow a user to return to the reddit homepage after searching for a keyword
+        returnToRedditBtn.setOnClickListener(view -> {
+            redditWebView.setVisibility(View.VISIBLE);
+            returnToRedditBtn.setVisibility(View.GONE);
+            redditWebView.loadUrl("https://www.reddit.com/");
         });
 
         // Set the OnNavigationItemSelectedListener of the BottomNavigationView
@@ -87,13 +86,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // Check which item in the BottomNavigationView was selected
                 switch (item.getItemId()) {
-                    // If the Home item was selected
-                    case R.id.navigation_home:
-                        // Create an Intent to launch the HomeActivity
-                        Intent homeIntent = new Intent(MainActivity.this, HomePageActivity.class);
-                        // Start the HomeActivity
-                        startActivity(homeIntent);
-                        return true;
 
                     // If the Community item was selected
                     case R.id.navigation_community:
@@ -116,53 +108,6 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                 }
             }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REDDIT_AUTH_REQUEST && resultCode == RESULT_OK) {
-            String authCode = data.getStringExtra("authCode");
-            if (authCode != null) {
-                AuthorityRepo.getAccessToken(authCode, token -> {
-                    if (token != null && !token.isEmpty()) {
-                        accessToken = token;
-                        runOnUiThread(() ->
-                                Toast.makeText(this, "Authentication for Reddit is successful", Toast.LENGTH_SHORT).show()
-                        );
-                    } else {
-                        runOnUiThread(() ->
-                                Toast.makeText(this, "Failed to authenticate", Toast.LENGTH_SHORT).show()
-                        );
-                    }
-                    return null;
-                });
-            }
-        }
-    }
-
-
-    private void searchForSubreddits(String query) {
-        if (accessToken == null || accessToken.isEmpty()) {
-            Toast.makeText(this, "Please log into Reddit first", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Repo.searchSubredditLaunch(accessToken, query).thenAccept(subreddits -> {
-            runOnUiThread(() -> {
-                if (subreddits != null && !subreddits.isEmpty()) {
-                    recyclerView.setAdapter(new GGAdapter(subreddits));
-                } else {
-                    Toast.makeText(MainActivity.this, "No Subreddit has been found", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }).exceptionally(e -> {
-            runOnUiThread(() ->
-                    Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show()
-            );
-            return null;
         });
     }
 }

@@ -42,7 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="#FF9800"
-        android:onClick="openHomePageActivity"
         android:text="Log In" />
 
     <TextView

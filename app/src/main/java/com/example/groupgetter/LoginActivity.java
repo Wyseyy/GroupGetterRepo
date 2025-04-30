@@ -26,9 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setLogo(R.drawable.);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayUseLogoEnabled(true);
+        }
 
         //Find and store references to the email input field, password input field, and login button in the layout
         mEmailEText = findViewById(R.id.email_input);
@@ -66,8 +67,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     if (email.equals(savedEmail) && password.equals(savedPassword)) {
-                        //If the entered email and password match, start the HomePageActivity and finish the LoginActivity.
-                        Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                        //If the entered email and password match, start the MainActivity and finish the LoginActivity.
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {

@@ -13,10 +13,10 @@
         />
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.groupgetter.HomeFragment"
+        android:id="@+id/navigation_main"
+        android:name="com.example.groupgetter.MainFragment"
         android:label="Home"
-        tools:layout="@layout/activity_homepage"
+        tools:layout="@layout/activity_main"
         />
 
     <fragment

@@ -10,52 +10,51 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.GroupGetter.AppBarOverlay"
-        tools:ignore="MissingConstraints" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation_gg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        android:checkableBehavior="single"
-        app:defaultNavHost="true"
-        app:menu="@menu/bottom_nav_menu"
-        app:navGraph="@navigation/navigation"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="674dp"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/searchEText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter keyword"
-        android:inputType="text"
-        android:maxLines="1"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/searchBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        tools:ignore="MissingConstraints" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"/>
+        android:theme="@style/Theme.GroupGetter.AppBarOverlay" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="244dp"
-        android:layout_height="69dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Placeholder for eventual logo"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="298dp" />
+        android:gravity="center"
+        android:padding="8dp" />
+
+    <!-- WebView showing Reddit homepage -->
+    <WebView
+        android:id="@+id/redditWebView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/connectBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect to Reddit!"/>
+
+    <!--<Button
+            android:id="@+id/connectBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect to Facebook!"/> -->
+
+    <Button
+        android:id="@+id/returnToRedditBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back to Reddit homepage"
+        android:visibility="gone" />
+
+
+    <!-- Bottom Navigation Menu -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation_gg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu" />
+
 </LinearLayout>

@@ -1,5 +1,4 @@
 package com.example.groupgetter
-
 data class SubredditSearchResponse(
         val data: SubredditsInfo
 )
@@ -18,3 +17,4 @@ data class SubredditInformation(
         val description: String,
         val icon: String,
 )
+

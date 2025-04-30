@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class GGAdapterFacebook(private val pages: List<FacebookPages>) : RecyclerView.Adapter<GGAdapterFacebook.ViewHolder>(){
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val nameOfPage: TextView = view.findViewById(R.id.pageName)
-        val categoryOfPage: TextView = view.findViewById(R.id.pageCat)
+        val nameOfPage: TextView = view.findViewById(R.id.facebookPage)
+        val categoryOfPage: TextView = view.findViewById(R.id.facebookCategory)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
         val view = LayoutInflater.from(parent.context).inflate(R.layout.page_item, parent, false)
