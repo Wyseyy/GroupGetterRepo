@@ -1,7 +1,5 @@
 package com.example.groupgetter
 
-import com.google.gson.annotations.SerializedName
-
 data class AuthorityResponse(
         val access_token: String,
         val token_type: String,

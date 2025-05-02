@@ -16,9 +16,16 @@
         android:textSize="24sp" />
 
     <EditText
+        android:id="@+id/username_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:inputType="textPersonName" />
+
+    <EditText
         android:id="@+id/email_input"
         android:layout_width="match_parent"
-        android:layout_height="352dp"
+        android:layout_height="wrap_content"
         android:hint="E-mail"
         android:inputType="textEmailAddress" />
 
@@ -29,12 +36,6 @@
         android:hint="Password"
         android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/username_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"
-        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/login_button"

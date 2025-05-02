@@ -22,12 +22,27 @@
         android:gravity="center"
         android:padding="8dp" />
 
-    <!-- WebView showing Reddit homepage -->
-    <WebView
-        android:id="@+id/redditWebView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- WebView showing Reddit homepage -->
+        <WebView
+            android:id="@+id/redditWebView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/connectBtn"
@@ -35,18 +50,25 @@
         android:layout_height="wrap_content"
         android:text="Connect to Reddit!"/>
 
-    <!--<Button
-            android:id="@+id/connectBtn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Connect to Facebook!"/> -->
+    <Button
+        android:id="@+id/connectBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect to Tumblr!"/>
 
     <Button
         android:id="@+id/returnToRedditBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back to Reddit homepage"
+        android:text="Back to Reddit"
         android:visibility="gone" />
+
+    <Button
+        android:id="@+id/returnToTumblrBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back to Tumblr"
+        android:visibility="gone"/>
 
 
     <!-- Bottom Navigation Menu -->
@@ -56,5 +78,4 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_nav_menu" />
-
 </LinearLayout>
