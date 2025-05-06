@@ -1,7 +1,6 @@
 package com.example.groupgetter;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,22 +12,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SignUpActivity extends AppCompatActivity {
     private EditText mEmailEText;
     private EditText mUserEText;
     private EditText mPasswordEText;
     private Button mRegisterButton;
     private Pattern mEmailPattern;
-    private TextView mLoginTextView;
-    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setLogo(R.drawable.ic;
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayUseLogoEnabled(true);
+        }
 
         mEmailEText = findViewById(R.id.register_email);
         mPasswordEText = findViewById(R.id.register_password);
@@ -36,52 +41,64 @@ public class SignUpActivity extends AppCompatActivity {
         mUserEText = findViewById(R.id.register_username);
 
         mEmailPattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-        mSharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
-        //This is the onclick for register button
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //This gets the email and password from the input fields & the .trim() removes the whitespace after the email address/password
                 String email = mEmailEText.getText().toString().trim();
                 String password = mPasswordEText.getText().toString().trim();
                 String username = mUserEText.getText().toString().trim();
 
-                //This checks if the email address matches the regex pattern
                 Matcher matcher = mEmailPattern.matcher(email);
-                if (matcher.matches()) {
-                    //This saves the username, email address and password the the shared preferences file/
-                    SharedPreferences.Editor editor = mSharedPreferences.edit();
-                    editor.putString("username", username);
-                    editor.putString("email", email);
-                    editor.putString("password", password);
-                    editor.apply();
 
-                    //If the email address and password are valid, this will then bring the user to the main activity which brings the user to the login page.
-                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else if(password == null){
-                    //Validation if the user has a correct email and password is empty
-                    Toast.makeText(SignUpActivity.this, "Invalid password. Please try again.", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    //If the email address is invalid
-                    Toast.makeText(SignUpActivity.this, "Invalid email. Please enter a valid email address.", Toast.LENGTH_SHORT).show();
+                if (!matcher.matches()) {
+                    Toast.makeText(SignUpActivity.this, "Invalid email address.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                if (password.isEmpty()) {
+                    Toast.makeText(SignUpActivity.this, "Password cannot be empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (username.isEmpty()) {
+                    Toast.makeText(SignUpActivity.this, "Username cannot be empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                registerUser(email, username, password);
             }
         });
 
-        View mloginTextView = findViewById(R.id.register_login_text);
-        //This is an onclick listener for the Click Here to log in text.
+        TextView mLoginTextView = findViewById(R.id.register_login_text);
+        mLoginTextView.setOnClickListener(view -> {
+            Intent loginIntent = new Intent(SignUpActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+        });
+    }
 
-        mloginTextView.setOnClickListener(new View.OnClickListener() {
+    private void registerUser(String email, String username, String password) {
+        Service service = Client.getService(); // Use shared Retrofit instance
+        RegRequest request = new RegRequest(email, username, password);
+        Call<ResponseBody> call = service.register(request);
+
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onClick(View view) {
-                //This redirects the user back to the login activity
-                Intent loginIntent = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(SignUpActivity.this, "Registered successfully!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Registration failed. Try different credentials.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(SignUpActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 }
+
