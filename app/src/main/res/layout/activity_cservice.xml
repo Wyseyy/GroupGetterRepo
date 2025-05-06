@@ -1,120 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@color/white">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/support_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Customer Support"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:padding="16dp"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/support_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Please fill out the form below or email us."
-            android:textSize="16sp"
-            android:gravity="center"
-            android:padding="8dp"
-            android:lineSpacingExtra="4dp"
-            android:textColor="@color/gray" />
-
-        <EditText
-            android:id="@+id/name_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Your Username"
-            android:inputType="textPersonName"
-            android:padding="12dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/email_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Your Email"
-            android:inputType="textEmailAddress"
-            android:padding="12dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginTop="8dp" />
-
-        <EditText
-            android:id="@+id/message_input"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:hint="Your Message"
-            android:inputType="textMultiLine"
-            android:gravity="top"
-            android:padding="12dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginTop="8dp" />
-
-        <Button
-            android:id="@+id/submit_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/primary"
-            android:textColor="@color/white" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/light_gray"
-            android:layout_marginVertical="16dp" />
-
-        <TextView
-            android:id="@+id/contact_options_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="      Or Email Us Directly at GGSupport@gmail.com"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/black" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/navigation_gg"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="8dp">
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/support_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer Support"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="16dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/support_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please fill out the form below or email us."
+                android:textSize="16sp"
+                android:gravity="center"
+                android:padding="8dp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/gray" />
+
+            <EditText
+                android:id="@+id/name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your Username"
+                android:inputType="textPersonName"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/email_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your Email"
+                android:inputType="textEmailAddress"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/message_input"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:hint="Your Message"
+                android:inputType="textMultiLine"
+                android:gravity="top"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginTop="8dp" />
 
             <Button
-                android:id="@+id/email_button"
-                android:layout_width="wrap_content"
+                android:id="@+id/submit_button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email Us"
+                android:text="Submit"
+                android:layout_marginTop="16dp"
                 android:backgroundTint="@color/primary"
                 android:textColor="@color/white" />
 
-        </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_gray"
+                android:layout_marginVertical="16dp" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navigation_gg"
-            app:defaultNavHost="true"
-            app:menu="@menu/bottom_nav_menu"
-            app:navGraph="@navigation/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="70dp"
-            android:background="?android:attr/windowBackground"
-            android:checkableBehavior="single" />
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/contact_options_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="      Or Email Us Directly at GGSupport@gmail.com"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/email_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email Us"
+                    android:backgroundTint="@color/primary"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation_gg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu"
+        android:checkableBehavior="single" />
+</RelativeLayout>
+
