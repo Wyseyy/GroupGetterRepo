@@ -1,12 +1,13 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const router = express.Router();
+require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'your.email@gmail.com',        
-        pass: 'your_app_password'            
+        user: process.env.GMAIL_USER,        
+        pass: process.env.GMAIL_PASSWORD           
     }
 });
 
@@ -19,7 +20,7 @@ router.post('/', async (req, res) => {
 
     const mailOptions = {
         from: email,                           
-        to: 'GGSupp0rt@gmail.com',           
+        to: 'groupgettersupp0rt@gmail.com',          
         subject: `Support Request from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
     };
