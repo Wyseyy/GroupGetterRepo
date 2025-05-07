@@ -8,6 +8,13 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/gg_logo"
+        android:layout_width="197dp"
+        android:layout_height="179dp"
+        android:layout_marginBottom="250dp"
+        android:src="@drawable/groupgetter_foreground" />
+
     <TextView
         android:id="@+id/login_title"
         android:layout_width="wrap_content"

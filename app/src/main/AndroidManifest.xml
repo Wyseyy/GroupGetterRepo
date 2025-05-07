@@ -12,27 +12,21 @@
         android:theme="@style/Theme.GroupGetter"
         tools:targetApi="31">
 
-        <activity android:name=".SignUpActivity"
-            android:exported="true">
-        </activity>
-        <activity android:name=".LoginActivity"
+        <!-- Splash Activity is now the launcher -->
+        <activity android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CommunityActivity"
+
+        <!-- LoginActivity will follow the splash screen -->
+        <activity android:name=".LoginActivity"
             android:exported="true">
         </activity>
-        <activity android:name=".CServiceActivity"
-            android:exported="true">
-        </activity>
-        <activity android:name=".RedditAuthenticationActivity"
-            android:exported="true">
-        </activity>
-        <activity
-            android:name=".MainActivity"
+
+        <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.action.VIEW"/>
@@ -43,6 +37,18 @@
                     android:host="redditredirect"/>
             </intent-filter>
         </activity>
-    </application>
+        <activity android:name=".SignUpActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".CommunityActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".CServiceActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".RedditAuthenticationActivity"
+            android:exported="true">
+        </activity>
 
+    </application>
 </manifest>

@@ -7,7 +7,7 @@ public class CSupportRequest {
 
     public CSupportRequest(String name, String email, String message) {
         this.name = name;
-        this.email = name;
+        this.email = email;
         this.message = message;
     }
 }

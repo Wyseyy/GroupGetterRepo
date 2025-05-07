@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const cors = require('cors');
 const port = 3000;
-const supportRoute = require('./routes/support');
+const supportRoute = require('./routes/customersupport');
+
+require('dotenv').config();
 
 app.use(express.json());
 app.use('/support', supportRoute);
@@ -89,7 +91,7 @@ app.post('/login', (req, res) => {
 
             const token = jwt.sign( 
                 { id: user.id, username: user.username },
-                'GroupGetterJWTKEY',
+                process.env.JWT_SECRET || 'insecurefallbackkey',
                 {expiresIn: '1h' }
             );
 
