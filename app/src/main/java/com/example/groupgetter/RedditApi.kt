@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface RedditApi {
     @Headers(
-            "User-Agent: GroupGetterApp/0.1 by YourRedditUsername"
+            "User-Agent: GroupGetterApp/0.1 by Wyseyyy"
     )
     @GET("subreddits/search")
     suspend fun searchSubreddits(

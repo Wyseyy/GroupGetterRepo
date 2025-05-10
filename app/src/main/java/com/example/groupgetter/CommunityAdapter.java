@@ -4,15 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.MessageViewHolder> {
 
-    private ArrayList<String> messages;
+    private ArrayList<Message> messages;
 
-    public CommunityAdapter(ArrayList<String> messages) {
+    public CommunityAdapter(ArrayList<Message> messages) {
         this.messages = messages;
     }
 
@@ -24,7 +25,9 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Mess
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        holder.messageText.setText(messages.get(position));
+        Message currentMessage = messages.get(position);
+        holder.messageText.setText(currentMessage.getMessage());
+        holder.messageUser.setText(currentMessage.getUsername());
     }
 
     @Override
@@ -34,10 +37,12 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Mess
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         TextView messageText;
+        TextView messageUser;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
             messageText = itemView.findViewById(R.id.messageText);
+            messageUser = itemView.findViewById(R.id.messageUser);
         }
     }
 }

@@ -6,12 +6,14 @@ const app = express();
 const cors = require('cors');
 const port = 3000;
 const supportRoute = require('./routes/customersupport');
+const communityRoute = require('./routes/community');
 
 require('dotenv').config();
 
+app.use(cors());
 app.use(express.json());
 app.use('/support', supportRoute);
-app.use(cors());
+app.use('/community', communityRoute);
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -75,11 +77,9 @@ app.post('/login', (req, res) => {
     }
 
     if(results.length == 0){
-        return res.length(404).json({ error: 'User not found' }); 
+        return res.status(404).json({ error: 'User not found' }); 
     }
-
     const user = results[0];
-
     bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) {
             return res.status(500).json({ error: 'Verification error' });

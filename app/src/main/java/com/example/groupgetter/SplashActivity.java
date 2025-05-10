@@ -17,11 +17,11 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Launch MainActivity after the splash screen
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                // Launch LoginActivity after the splash screen
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish(); // Close SplashActivity
             }
-        }, 2000); // 2 seconds delay
+        }, 300);
     }
 }
