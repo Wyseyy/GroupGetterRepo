@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     public Button mLoginButton;
     public TextView mRegisterTView;
     public Pattern mEmailPattern;
+    private ProgressBar mProgressBar; // Progress bar to indicate loading
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.login_button);
         mUserEtext = findViewById(R.id.username_input);
         mRegisterTView = findViewById(R.id.register_link);
+        mProgressBar = findViewById(R.id.progress_bar);
+        mProgressBar.setVisibility(View.GONE);
 
         mEmailPattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
 
@@ -71,11 +73,15 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
 
+                mProgressBar.setVisibility(View.VISIBLE); // Show progress bar
+
                 LoginRequest request = new LoginRequest(emailOrUsername, password);
                 Service service = Client.getService();
                 service.login(request).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        runOnUiThread(() -> mProgressBar.setVisibility(View.GONE)); // Hide progress bar
+
                         if (response.isSuccessful()) {
                             //store the username in a SharedPreferences after login to allow for the username to be used in CommunityActivity
                             SharedPreferences shared = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -118,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        runOnUiThread(() -> mProgressBar.setVisibility(View.GONE));
                         Toast.makeText(LoginActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -130,4 +137,5 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 }
+
 
