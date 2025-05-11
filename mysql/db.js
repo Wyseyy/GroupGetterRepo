@@ -1,3 +1,4 @@
+//This class sets up the connection between GroupGetter and the MySQL database
 require('dotenv').config();
 const mysql = require('mysql2/promise');
 

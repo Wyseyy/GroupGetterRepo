@@ -31,7 +31,8 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+//This is the main activity class, this class allows for a user to connect to social medias and have the
+// social media appear in a WebView upon clicking a connect button.
 public class MainActivity extends AppCompatActivity {
     public BottomNavigationView bottomMenu;
     private Button returnToRedditBtn;

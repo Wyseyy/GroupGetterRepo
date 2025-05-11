@@ -18,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//This is a main class revolved around allowing a user to log in using the credentials they entered in the register page, allowing for entry into the application
 public class LoginActivity extends AppCompatActivity {
     public EditText mEmailEText;
     public EditText mUserEtext;

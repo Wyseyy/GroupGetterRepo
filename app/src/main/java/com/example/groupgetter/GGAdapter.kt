@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
+//Adapter class for displaying reddit and its subreddits, their name, title, description and icon using glide.
 class GGAdapter(private var subredditList: List<SubredditInformation>) :
         RecyclerView.Adapter<GGAdapter.ViewHolder>() {
 

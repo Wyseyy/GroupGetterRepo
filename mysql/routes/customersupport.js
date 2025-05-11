@@ -1,4 +1,5 @@
-const express = require('express');
+//this is a backend class for linking the CServiceActivity page to the MySQL database
+ express = require('express');
 const nodemailer = require('nodemailer');
 const router = express.Router();
 require('dotenv').config();

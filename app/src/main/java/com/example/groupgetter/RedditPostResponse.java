@@ -2,6 +2,8 @@ package com.example.groupgetter;
 
 import java.util.List;
 
+//class to represent the response from a reddit request,
+//returning a list of reddit posts with their details
     public class RedditPostResponse {
         private List<RedditPost> data;
         public List<RedditPost> getData() {

@@ -1,3 +1,4 @@
+//This is a backend class for allowing a user to register and login and have their credentials saved to the MySQL database.
 const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcryptjs');

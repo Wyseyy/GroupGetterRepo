@@ -1,5 +1,6 @@
 package com.example.groupgetter;
 
+//Class representing a message structure with message content and the username of the sender
 public class Message {
     private String message;
     private String username;

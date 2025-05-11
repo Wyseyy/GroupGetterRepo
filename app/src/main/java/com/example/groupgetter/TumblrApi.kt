@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+//retrofit instance for searching for tagged posts on Tumblr using a tag and api key
 interface TumblrApi {
     @GET("v2/tagged")
     suspend fun searchTaggedPosts(

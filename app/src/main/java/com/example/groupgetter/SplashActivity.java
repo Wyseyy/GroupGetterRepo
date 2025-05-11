@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
+//class for the splash screen that appears prior to the app opening
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -13,7 +14,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Delay for 2 seconds before launching MainActivity
+        // Delay before launching MainActivity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

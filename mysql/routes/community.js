@@ -1,3 +1,4 @@
+//This is a backend class for linking the CommunityActivity page to the MySQL database
 const express = require('express');
 const router = express.Router();
 const dbPromise = require('../db'); 

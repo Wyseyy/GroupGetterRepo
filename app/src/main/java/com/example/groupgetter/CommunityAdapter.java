@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//Adapter class for displaying user messages with their username in a RecyclerView
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.MessageViewHolder> {
 
     private ArrayList<Message> messages;

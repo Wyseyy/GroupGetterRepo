@@ -1,5 +1,6 @@
 package com.example.groupgetter;
 
+//class representing a request body with a key
 public class RequestBody {
     private String key;
 

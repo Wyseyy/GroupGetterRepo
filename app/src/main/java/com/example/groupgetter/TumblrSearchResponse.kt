@@ -1,5 +1,6 @@
 package com.example.groupgetter
 
+//data class representing a tumblr search response
 data class TumblrSearchResponse(
         val meta: Meta?,
         val response: List<TumblrPost>

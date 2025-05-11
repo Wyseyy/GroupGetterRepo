@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-
+//Adapter for displaying Tumblr and its Blogs in name, description and avatar
 data class TumblrBlog(
         val name: String,
         val title: String?,

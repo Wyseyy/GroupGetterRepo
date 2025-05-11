@@ -1,5 +1,6 @@
 package com.example.groupgetter;
 
+//Class with the fields for the customer service request
 public class CSupportRequest {
     private String name;
     private String email;

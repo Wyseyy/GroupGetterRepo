@@ -1,5 +1,6 @@
 package com.example.groupgetter;
 
+//class that represents a request to register the user
 public class RegRequest {
     private String email;
     private String username;

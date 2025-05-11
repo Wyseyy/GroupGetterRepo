@@ -6,6 +6,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
+//Interface for defining the API endpoints for a users registration and login.
 public interface Service {
     @POST("/register")
     @Headers("Content-Type: application/json")

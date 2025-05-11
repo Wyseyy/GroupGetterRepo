@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+//An object that both builds and returns a Retrofit client for Reddit OAuth2 authentication
 object AuthoriseApiClient {
     private const val BASE_URL = "https://www.reddit.com/api/v1/"
 

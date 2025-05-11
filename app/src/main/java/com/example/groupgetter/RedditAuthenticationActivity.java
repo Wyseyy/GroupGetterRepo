@@ -8,6 +8,9 @@ import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+// Class that loads a Reddit OAuth2 authentication page in a WebView,
+// which then captures the authorization code,
+// and upon successful authentication, returns it to the calling activity.
 public class RedditAuthenticationActivity extends AppCompatActivity {
     private WebView webView;
     private final String redirectURI = "http://groupgetter://redditredirect";

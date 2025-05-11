@@ -1,4 +1,6 @@
 package com.example.groupgetter
+
+//data classes representing the structure of a subreddit search response
 data class SubredditSearchResponse(
         val data: SubredditsInfo
 )

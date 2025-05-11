@@ -22,6 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//This is a main class for the Community page, allowing users to create and post messages and have them returned to them on screen.
 public class CommunityActivity extends AppCompatActivity {
 
     private EditText communityMessage;

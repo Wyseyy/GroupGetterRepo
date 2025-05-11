@@ -2,6 +2,7 @@ package com.example.groupgetter;
 
 import java.util.regex.Pattern;
 
+//class used for login testing
 public class LoginValidationTest {
     private static final Pattern EMAIL_PATTERN =
             Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");

@@ -5,6 +5,9 @@ import retrofit2.http.Header
 import retrofit2.http.Query
 import kotlinx.coroutines.*
 import java.util.concurrent.CompletableFuture
+
+//An object class responsible for interacting with the Reddit API to search subreddits
+//Using retrofit, coroutines and completablefuture for calls and responses
 object Repo {
     private val retrofit = Retrofit.Builder()
             .baseUrl("https://oauth.reddit.com/")

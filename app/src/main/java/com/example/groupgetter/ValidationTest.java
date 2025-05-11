@@ -2,6 +2,7 @@ package com.example.groupgetter;
 
 import java.util.regex.Pattern;
 
+//class used for testing
 public class ValidationTest {
 
     private static final Pattern emailPattern =

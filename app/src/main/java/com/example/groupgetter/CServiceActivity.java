@@ -19,6 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//This is a main class dedicated to allowing users to create and send customer support messages to a dedicated and linked email
 public class CServiceActivity extends AppCompatActivity {
     private BottomNavigationView bottomMenu;
     private EditText CSname;

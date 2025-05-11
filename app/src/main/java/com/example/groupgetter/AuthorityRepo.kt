@@ -5,6 +5,7 @@ import com.example.groupgetter.RetrofitInstance
 import kotlinx.coroutines.*
 import okhttp3.Credentials
 
+//Object for fetching an app-only OAuth2 access token using Retrofit, returning it using a callback
 object AuthorityRepo {
     private const val ID = "ZlbcDAFm9zETA6KWcxLAoA"
     private const val SECRET = "g-YdRKX_GYpAV5eOL0fCJ4frDhn2Vw"

@@ -22,6 +22,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//This is a main class centred around allowing users to register an account,
+//allowing users to enter an email, password and username to be saved into the system
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText mEmailInput;
